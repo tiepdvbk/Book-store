@@ -34,6 +34,7 @@ public class ThongTinCaNhanActivity extends AppCompatActivity {
 
     private TextView txtName, txtUser, txtSdt, txtEmail, txtDc, txtDoiPass, txtDoiTT;
     private BottomSheetDialog dialog;
+    private ImageView back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +48,12 @@ public class ThongTinCaNhanActivity extends AppCompatActivity {
         txtSdt.setText(USER.sdt);
         txtEmail.setText(USER.mail);
         txtUser.setText(USER.uname);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         txtDoiPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -222,6 +229,7 @@ public class ThongTinCaNhanActivity extends AppCompatActivity {
     }
 
     private void anhXa() {
+        back = findViewById(R.id.back);
         txtName = findViewById(R.id.txtName);
         txtUser = findViewById(R.id.txtUser);
         txtSdt = findViewById(R.id.txtSdt);

@@ -17,6 +17,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -178,6 +179,7 @@ public class CardActivity extends AppCompatActivity {
     public void datHangSheet(){
         LayoutInflater layoutInflater = LayoutInflater.from(CardActivity.this);
         @SuppressLint("InflateParams") View v = layoutInflater.inflate(R.layout.dat_hang_sheet, null);
+        LinearLayout lnDc = v.findViewById(R.id.lnDc);
         Button btnDat = v.findViewById(R.id.btnDatHang);
         TextView txtDiaChi = v.findViewById(R.id.txtDiaChi);
         TextView txtThanhTien = v.findViewById(R.id.txtThanhTien);
@@ -186,7 +188,12 @@ public class CardActivity extends AppCompatActivity {
         dialog = new BottomSheetDialog(CardActivity.this);
         dialog.setContentView(v);
         dialog.show();
-
+        lnDc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogThayDiaChi();
+            }
+        });
         btnDat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -194,6 +201,57 @@ public class CardActivity extends AppCompatActivity {
             }
         });
     }
+    private void dialogThayDiaChi() {
+        LayoutInflater layoutInflater = LayoutInflater.from(CardActivity.this);
+        View v = layoutInflater.inflate(R.layout.thaydc_sheet, null);
+        BottomSheetDialog dialog = new BottomSheetDialog(CardActivity.this);
+        dialog.setContentView(v);
+        dialog.show();
+        Button btnLuu = v.findViewById(R.id.btnLuu);
+        TextView txtDc = v.findViewById(R.id.txtDiaChi);
+        txtDc.setText(USER.addres);
+        btnLuu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addDiaChi(txtDc.getText().toString().trim());
+            }
+        });
+    }
+
+    private void addDiaChi(String dc) {
+        if (dc.matches("")||dc.equals("null"))
+            ALL.showDialog("Xin nhập địa chỉ",CardActivity.this);
+        else {
+            RequestQueue queue = Volley.newRequestQueue(CardActivity.this);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, UrlData.urlDoiDiaChi,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            if (response.equals("yes")){
+                                ALL.showDialog("Lưu thành công",CardActivity.this);
+                                USER.addres = dc;
+                            }else ALL.showDialog("Lưu thất bại",CardActivity.this);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            ALL.showDialog(error.toString(),CardActivity.this);
+                        }
+                    }){
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("id", String.valueOf(USER.id));
+                    params.put("address", dc);
+                    return params;
+                }
+            };
+            queue.add(stringRequest);
+        }
+    }
+
     private void addDon(){
         RequestQueue queue = Volley.newRequestQueue(CardActivity.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UrlData.urlAddDonHang,

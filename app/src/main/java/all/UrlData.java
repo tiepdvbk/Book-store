@@ -1,7 +1,7 @@
 package all;
 
 public class UrlData {
-    public static String ip = "192.168.132.58";
+    public static String ip = "192.168.36.58";
     public static String a = "http://"+ip+"/";
     public static String urlLog = a+"bookstore/login.php";
     public static String urlGetLogInfor = a+"bookstore/idLog.php";
