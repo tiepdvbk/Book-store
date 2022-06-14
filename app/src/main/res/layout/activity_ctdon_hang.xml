@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DonHang.DonHangActivity"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/lnOk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/rlTop"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#F4EDDE">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/ic_baseline_arrow_back_ios_new_243" />
+
+            <TextView
+                android:id="@+id/txtNameDH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="8dp"
+                android:textColor="#007FFD"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/lvCTDHang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

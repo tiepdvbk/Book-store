@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Mua bán sách online</string>
+    <string name="it_home">Trang chủ</string>
+    <string name="it_list">Danh mục</string>
+    <string name="it_my">Cá nhân</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

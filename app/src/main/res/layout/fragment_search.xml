@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+    <LinearLayout
+        android:id="@+id/rlTop"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#F4EDDE"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_baseline_arrow_back_ios_new_243"/>
+        <EditText
+            android:id="@+id/edtSearch"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:background="@drawable/bo_edt"
+            android:drawableStart="@drawable/ic_baseline_search_24"
+            android:paddingStart="15dp"
+            android:paddingEnd="10dp"
+            android:hint="Tìm kiếm" />
+        <ImageView
+            android:id="@+id/imgCard"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/cart"/>
+    </LinearLayout>
+    <GridView
+        android:layout_margin="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="3"
+        android:id="@+id/grvSearch"/>
+
+</LinearLayout>
