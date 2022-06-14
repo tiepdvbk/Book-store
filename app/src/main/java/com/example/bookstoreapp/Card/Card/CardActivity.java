@@ -83,6 +83,7 @@ public class CardActivity extends AppCompatActivity {
         readCard();
         sumPrice();
         SwipeToDelete();
+
     }
 
     private void SwipeToDelete() {
@@ -165,7 +166,10 @@ public class CardActivity extends AppCompatActivity {
         btnDatHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                datHangSheet();
+                if(lcs.size() == 0)
+                    ALL.showDialog("Giỏ hàng trống",CardActivity.this);
+                else
+                    datHangSheet();
             }
         });
     }

@@ -29,6 +29,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.bookstoreapp.CaNhan.PersonalFragment;
 import com.example.bookstoreapp.Card.Card.CardActivity;
 import com.example.bookstoreapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -48,7 +49,7 @@ import all.USER;
 import all.UrlData;
 
 public class BookInfor extends AppCompatActivity {
-    private TextView mTvGiam, txtPrice, txtName, txtAuthor,txtTotalPrice;
+    private TextView mTvGiam, txtPrice, txtName, txtAuthor,txtTotalPrice,txtDiaChi;
     private Button mBtnAdd, mBtnBuy;
     private ImageView imgBack, back, imgBia;
     private ImageButton search, card;
@@ -168,10 +169,12 @@ public class BookInfor extends AppCompatActivity {
         dialog.setContentView(v);
         dialog.show();
         Button btnBuy = v.findViewById(R.id.btnBuy);
-        imgBack = v.findViewById(R.id.imgBack);
+        LinearLayout lnDc = v.findViewById(R.id.lnDc);
         txtName = v.findViewById(R.id.txtName);
         txtPrice = v.findViewById(R.id.txtPrice);
         txtTotalPrice = v.findViewById(R.id.txtTotalPrice);
+        txtDiaChi = v.findViewById(R.id.txtDiaChi);
+        txtDiaChi.setText(USER.addres);
         ImageView imgPic = v.findViewById(R.id.imgBia);
         ImageView imgGiam, imgTang;
         imgGiam = v.findViewById(R.id.imgGiam);
@@ -200,16 +203,20 @@ public class BookInfor extends AppCompatActivity {
             }
         });
         txtTotalPrice.setText(String.valueOf(price));
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.cancel();
-            }
-        });
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                datHang();
+                if(USER.addres.matches("")||USER.addres.equals("null")){
+                    Toast.makeText(BookInfor.this, "Vui lòng thêm địa chỉ giao hàng", Toast.LENGTH_SHORT).show();
+                    dialogThayDiaChi();
+                }else
+                    datHang();
+            }
+        });
+        lnDc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogThayDiaChi();
             }
         });
         totalPrice = price *sl;
@@ -233,6 +240,58 @@ public class BookInfor extends AppCompatActivity {
                 txtTotalPrice.setText(String.valueOf(totalPrice));
             }
         });
+    }
+
+    private void dialogThayDiaChi() {
+        LayoutInflater layoutInflater = LayoutInflater.from(BookInfor.this);
+        View v = layoutInflater.inflate(R.layout.thaydc_sheet, null);
+        BottomSheetDialog dialog = new BottomSheetDialog(BookInfor.this);
+        dialog.setContentView(v);
+        dialog.show();
+        Button btnLuu = v.findViewById(R.id.btnLuu);
+        TextView txtDc = v.findViewById(R.id.txtDiaChi);
+        txtDc.setText(USER.addres);
+        btnLuu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addDiaChi(txtDc.getText().toString().trim());
+            }
+        });
+    }
+
+    private void addDiaChi(String dc) {
+        if (dc.matches("")||dc.equals("null"))
+            ALL.showDialog("Xin nhập địa chỉ",BookInfor.this);
+        else {
+            RequestQueue queue = Volley.newRequestQueue(BookInfor.this);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, UrlData.urlDoiDiaChi,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            if (response.equals("yes")){
+                                ALL.showDialog("Lưu thành công",BookInfor.this);
+                                USER.addres = dc;
+                            }else ALL.showDialog("Lưu thất bại",BookInfor.this);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            ALL.showDialog(error.toString(),BookInfor.this);
+                        }
+                    }){
+                @Nullable
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("id", String.valueOf(USER.id));
+                    params.put("address", dc);
+                    return params;
+                }
+            };
+            queue.add(stringRequest);
+        }
+
     }
 
     private void datHang() {

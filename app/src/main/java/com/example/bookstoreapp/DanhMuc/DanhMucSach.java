@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ import all.UrlData;
 public class DanhMucSach extends AppCompatActivity {
     private GridView gv;
     private ImageButton btnSearch, btnCard;
+    private ImageView imgBack;
     private LinearLayout lnHide;
     private TextView txtNameDm;
     private FragmentContainerView fr;
@@ -62,6 +64,7 @@ public class DanhMucSach extends AppCompatActivity {
     }
 
     private void anhXa() {
+        imgBack = findViewById(R.id.imgBack);
         txtNameDm = findViewById(R.id.txtNameDm);
         btnSearch = findViewById(R.id.ibtnSearch);
         btnCard = findViewById(R.id.ibtnCard);
@@ -126,6 +129,12 @@ public class DanhMucSach extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), CardActivity.class);
                 view.getContext().startActivity(intent);
+            }
+        });
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
         txtNameDm.setText(nameDm);

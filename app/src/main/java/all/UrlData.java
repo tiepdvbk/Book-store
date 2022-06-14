@@ -1,7 +1,7 @@
 package all;
 
 public class UrlData {
-    public static String ip = "192.168.179.58";
+    public static String ip = "192.168.132.58";
     public static String a = "http://"+ip+"/";
     public static String urlLog = a+"bookstore/login.php";
     public static String urlGetLogInfor = a+"bookstore/idLog.php";
@@ -30,20 +30,6 @@ public class UrlData {
     public static String urlAddBookToDonHang = a+"bookstore/AddBookToDonHang.php";
     public static String urlDelateCTCard = a+"bookstore/DelateCTCard.php";
     public static String urlGetCTDonHang = a+"bookstore/GetCTDonHang.php";
-
-//        host free => lag kinh khung
-//    private static final String host = "https://tiepbookshoppp.000webhostapp.com/";
-//    public static String urlLog = host+"login.php";
-//    public static String urlGetLogInfor = host+"idLog.php";
-//    public static String urlGetDanhMuc = host+"select.php";
-//    public static String urlGetListBook = host+"listbook.php";
-//    public static String urlReadCard = host+"getCard.php";
-//    public static String urlGetBookByID = host+"selectBookById.php";
-//    public static String urlGetBookByIDTl = host+"selectBookByIdTl.php";
-//    public static String urlAddToCard = host+"addToCard.php";
-//    public static String urlSumPrice = host+"sumPrice.php";
-//    public static String urlEditTangGiam = host+"editTangGiamCard.php";
-//    public static String urlXoaSach = host+"bxoaSach.php";
-//    public static String urlFindByName = host+"selectBookLikeName.php";
+    public static String urlDoiDiaChi = a+"bookstore/DoiDiaChi.php";
 
 }
